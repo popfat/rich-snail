@@ -1,6 +1,6 @@
 {
-  "registered_at": "2026-11-24T22:17:18",
-  "note": "注册信息为派生物；本项目不实现指标计算（D8）。time_risk 项在 S2 前必须逐列核定。",
+  "registered_at": "2026-11-24T22:24:36",
+  "note": "注册信息为派生物；本项目不实现指标计算（D8）。画像面板逐列时间语义已核定（snapshots/b1/portrait_time_semantics.md）；pkl 缓存永久定位非权威加速层。",
   "market_snapshots": [
     {
       "id": "MS-PORTRAIT-001",
@@ -12,16 +12,16 @@
       "time_semantics": {
         "event_time": "trade_date",
         "publish_time": "unknown",
-        "available_time": "unknown（time_risk=true：混合来源，margin/ETF 有 T+1 与不齐特性，S2 前须逐列核定）",
+        "available_time": "逐列已核定：见 snapshots/b1/portrait_time_semantics.md（lev/etf 为 T+1；pos/vol 受指数缓存滞后影响）",
         "ingest_time": "unknown"
       },
-      "quality_status": "suspect（时间语义未逐列核定）",
+      "quality_status": "partial（逐列语义已核定；指数缓存最新 2026-11-17，滞后日 pos/vol 产出 NaN，报告须检查）",
       "file": {
         "sha256": "f3fa1238127bf3c533456bacf733a0efc2902b484a56393a111a51b920d0de07",
         "bytes": 582851,
         "mtime": "2026-11-24T17:38:27"
       },
-      "note": "占位列 north_flow/rate10y 未激活，契约禁止引用"
+      "note": "占位列 north_flow/rate10y 未启用，契约禁止引用"
     },
     {
       "id": "MS-COINCIDENT-001",
@@ -59,7 +59,7 @@
       },
       "quality_status": "suspect（非权威）",
       "file": null,
-      "note": "⚠️ 非权威加速层：不得作为 as_of 回放依据；权威快照待 B1 后续以契约格式重建"
+      "note": "⚠️ 非权威加速层（2026-11-24 结案）：永久不作为 as_of 回放依据；权威输入以 portrait_time_semantics.md + 本注册表为准"
     },
     {
       "id": "MS-RICHTREND-001",

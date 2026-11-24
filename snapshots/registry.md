@@ -4,12 +4,12 @@
 
 ## MarketSnapshot
 ### MS-PORTRAIT-001 · 市场画像日线面板
-- 引用：`section_heat/data/portrait_daily.parquet` ｜ 质量：suspect（时间语义未逐列核定）
+- 引用：`section_heat/data/portrait_daily.parquet` ｜ 质量：partial（逐列语义已核定；指数缓存最新 2026-11-17，滞后日 pos/vol 产出 NaN，报告须检查）
 - 覆盖：全市场/中证全指，2010 起（TODO 记载 4025 天×21 列）
 - 口径：原始值+1250日滚动分位（_pct 列）；估值历史段经 MySQL（2010~2026-07）+ tushare 补近期=混合来源
-- 时间语义：{"event_time": "trade_date", "publish_time": "unknown", "available_time": "unknown（time_risk=true：混合来源，margin/ETF 有 T+1 与不齐特性，S2 前须逐列核定）", "ingest_time": "unknown"}
+- 时间语义：{"event_time": "trade_date", "publish_time": "unknown", "available_time": "逐列已核定：见 snapshots/b1/portrait_time_semantics.md（lev/etf 为 T+1；pos/vol 受指数缓存滞后影响）", "ingest_time": "unknown"}
 - 文件：582851 bytes，sha256 `f3fa1238127bf3c5…`，mtime 2026-11-24T17:38:27
-- 备注：占位列 north_flow/rate10y 未激活，契约禁止引用
+- 备注：占位列 north_flow/rate10y 未启用，契约禁止引用
 
 ### MS-COINCIDENT-001 · 同步层合并视图
 - 引用：`wind_vane/data/coincident_daily.csv` ｜ 质量：ok（缺口机制已文档化）
@@ -24,7 +24,7 @@
 - 覆盖：不一致（逐文件）
 - 口径：进程缓存，无契约字段
 - 时间语义：{"event_time": "文件内 trade_date", "publish_time": "unknown", "available_time": "unknown（time_risk=true）", "ingest_time": "文件 mtime"}
-- 备注：⚠️ 非权威加速层：不得作为 as_of 回放依据；权威快照待 B1 后续以契约格式重建
+- 备注：⚠️ 非权威加速层（2026-11-24 结案）：永久不作为 as_of 回放依据；权威输入以 portrait_time_semantics.md + 本注册表为准
 
 ### MS-RICHTREND-001 · rich_trend MySQL 数据底座
 - 引用：`MySQL market_history_data.rt_*（11 表）` ｜ 质量：ok（口径须标注）

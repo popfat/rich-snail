@@ -11,7 +11,8 @@
 import os, re, sys, glob, hashlib, datetime
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-KB = os.path.join(ROOT, 'knowledge_base')
+KB = (sys.argv[sys.argv.index('--dir') + 1] if '--dir' in sys.argv
+      else os.path.join(ROOT, 'knowledge_base'))
 BASE = os.path.dirname(ROOT)
 
 FM_RE = re.compile(r'^---\n(.*?)\n---\n', re.S)

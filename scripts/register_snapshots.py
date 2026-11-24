@@ -34,9 +34,9 @@ MS = [
      "index_daily / MySQL factor_rotation.daily_basic + tushare / margin / daily / wind_vane etf_flow",
      "全市场/中证全指，2010 起（TODO 记载 4025 天×21 列）",
      "原始值+1250日滚动分位（_pct 列）；估值历史段经 MySQL（2010~2026-07）+ tushare 补近期=混合来源",
-     {"event_time": "trade_date", "publish_time": "unknown", "available_time": "unknown（time_risk=true：混合来源，margin/ETF 有 T+1 与不齐特性，S2 前须逐列核定）", "ingest_time": "unknown"},
-     "suspect（时间语义未逐列核定）",
-     "占位列 north_flow/rate10y 未激活，契约禁止引用"),
+     {"event_time": "trade_date", "publish_time": "unknown", "available_time": "逐列已核定：见 snapshots/b1/portrait_time_semantics.md（lev/etf 为 T+1；pos/vol 受指数缓存滞后影响）", "ingest_time": "unknown"},
+     "partial（逐列语义已核定；指数缓存最新 2026-11-17，滞后日 pos/vol 产出 NaN，报告须检查）",
+     "占位列 north_flow/rate10y 未启用，契约禁止引用"),
     ("MS-COINCIDENT-001", "同步层合并视图", "wind_vane/data/coincident_daily.csv",
      "moneyflow / margin / fund_share+fund_nav",
      "全市场；moneyflow/margin 自 2023-10-25，etf_flow 自 2012-05-04",
@@ -50,7 +50,7 @@ MS = [
      "进程缓存，无契约字段",
      {"event_time": "文件内 trade_date", "publish_time": "unknown", "available_time": "unknown（time_risk=true）", "ingest_time": "文件 mtime"},
      "suspect（非权威）",
-     "⚠️ 非权威加速层：不得作为 as_of 回放依据；权威快照待 B1 后续以契约格式重建"),
+     "⚠️ 非权威加速层（2026-11-24 结案）：永久不作为 as_of 回放依据；权威输入以 portrait_time_semantics.md + 本注册表为准"),
     ("MS-RICHTREND-001", "rich_trend MySQL 数据底座", "MySQL market_history_data.rt_*（11 表）",
      "moneyflow_ind_ths / ths_daily / ths_member / daily / daily_basic",
      "881 系列 90 个同花顺行业；行业资金流原生起点 2024-09-10；广度/结构类自 2024-12-24",
@@ -88,7 +88,7 @@ FS = [
 def main():
     os.makedirs(OUT, exist_ok=True)
     reg = {"registered_at": datetime.datetime.now().isoformat(timespec='seconds'),
-           "note": "注册信息为派生物；本项目不实现指标计算（D8）。time_risk 项在 S2 前必须逐列核定。",
+           "note": "注册信息为派生物；本项目不实现指标计算（D8）。画像面板逐列时间语义已核定（snapshots/b1/portrait_time_semantics.md）；pkl 缓存永久定位非权威加速层。",
            "market_snapshots": [], "feature_snapshots": []}
     for mid, name, rel, src, cov, cal, times, q, note in MS:
         fi = finfo(rel) if not rel.endswith('/') and '(' not in rel else None

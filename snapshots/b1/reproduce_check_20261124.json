@@ -1,0 +1,146 @@
+{
+  "checked_at": "2026-11-24T22:23:20",
+  "snapshot": "section_heat/data/portrait_daily.parquet",
+  "snapshot_sha256": "f3fa1238127bf3c533456bacf733a0efc2902b484a56393a111a51b920d0de07",
+  "rows": 4101,
+  "date_range": [
+    "2010-01-04",
+    "2026-11-24"
+  ],
+  "input_read_twice_identical": true,
+  "recompute_deterministic": true,
+  "stored_pct_reproduced_exactly": true,
+  "formula": "rolling 1250d percentile, min_periods=250 (与 build_portrait.py pct() 同实现)",
+  "columns": {
+    "pos_dd_52w": {
+      "compared": 3793,
+      "matched": 3793,
+      "match_rate": 1.0,
+      "max_abs_diff": 0.0,
+      "deterministic": true,
+      "worst_dates": [
+        "2011-04-15",
+        "2011-04-18",
+        "2011-04-19"
+      ],
+      "note": "全一致"
+    },
+    "pos_ma250_dev": {
+      "compared": 3793,
+      "matched": 3793,
+      "match_rate": 1.0,
+      "max_abs_diff": 0.0,
+      "deterministic": true,
+      "worst_dates": [
+        "2011-04-15",
+        "2011-04-18",
+        "2011-04-19"
+      ],
+      "note": "全一致"
+    },
+    "val_pe_med": {
+      "compared": 3852,
+      "matched": 3852,
+      "match_rate": 1.0,
+      "max_abs_diff": 0.0,
+      "deterministic": true,
+      "worst_dates": [
+        "2011-01-13",
+        "2011-01-14",
+        "2011-01-17"
+      ],
+      "note": "全一致"
+    },
+    "val_pb_med": {
+      "compared": 3852,
+      "matched": 3852,
+      "match_rate": 1.0,
+      "max_abs_diff": 0.0,
+      "deterministic": true,
+      "worst_dates": [
+        "2011-01-13",
+        "2011-01-14",
+        "2011-01-17"
+      ],
+      "note": "全一致"
+    },
+    "lev_rzye": {
+      "compared": 3795,
+      "matched": 3795,
+      "match_rate": 1.0,
+      "max_abs_diff": 0.0,
+      "deterministic": true,
+      "worst_dates": [
+        "2011-04-13",
+        "2011-04-14",
+        "2011-04-15"
+      ],
+      "note": "全一致"
+    },
+    "lev_ratio": {
+      "compared": 3795,
+      "matched": 3795,
+      "match_rate": 1.0,
+      "max_abs_diff": 0.0,
+      "deterministic": true,
+      "worst_dates": [
+        "2011-04-13",
+        "2011-04-14",
+        "2011-04-15"
+      ],
+      "note": "全一致"
+    },
+    "act_amount": {
+      "compared": 3852,
+      "matched": 3852,
+      "match_rate": 1.0,
+      "max_abs_diff": 0.0,
+      "deterministic": true,
+      "worst_dates": [
+        "2011-01-13",
+        "2011-01-14",
+        "2011-01-17"
+      ],
+      "note": "全一致"
+    },
+    "act_turnover": {
+      "compared": 3852,
+      "matched": 3852,
+      "match_rate": 1.0,
+      "max_abs_diff": 0.0,
+      "deterministic": true,
+      "worst_dates": [
+        "2011-01-13",
+        "2011-01-14",
+        "2011-01-17"
+      ],
+      "note": "全一致"
+    },
+    "vol20": {
+      "compared": 3832,
+      "matched": 3832,
+      "match_rate": 1.0,
+      "max_abs_diff": 0.0,
+      "deterministic": true,
+      "worst_dates": [
+        "2011-02-17",
+        "2011-02-18",
+        "2011-02-21"
+      ],
+      "note": "全一致"
+    },
+    "etf_flow": {
+      "compared": 3289,
+      "matched": 3289,
+      "match_rate": 1.0,
+      "max_abs_diff": 0.0,
+      "deterministic": true,
+      "worst_dates": [
+        "2013-05-15",
+        "2013-05-16",
+        "2013-05-17"
+      ],
+      "note": "全一致"
+    }
+  }
+}
