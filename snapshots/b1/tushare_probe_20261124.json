@@ -1,0 +1,294 @@
+{
+  "probed_at": "2026-11-24T22:15:52",
+  "results": [
+    {
+      "api": "trade_cal",
+      "ok": true,
+      "rows": 24,
+      "fields": [
+        "exchange",
+        "cal_date",
+        "is_open",
+        "pretrade_date"
+      ],
+      "latency_s": 0.07,
+      "note": "交易日历",
+      "sample_dates": [],
+      "params": {
+        "exchange": "SSE",
+        "start_date": "20261101",
+        "end_date": "20261124"
+      }
+    },
+    {
+      "api": "daily",
+      "ok": true,
+      "rows": 5572,
+      "fields": [
+        "ts_code",
+        "close",
+        "pct_chg",
+        "vol",
+        "amount"
+      ],
+      "latency_s": 1.29,
+      "note": "全市场日线（温度/离散度/相关性输入；amount 单位千元）",
+      "sample_dates": [],
+      "params": {
+        "trade_date": "20261120"
+      }
+    },
+    {
+      "api": "index_daily",
+      "ok": true,
+      "rows": 17,
+      "fields": [
+        "trade_date",
+        "close"
+      ],
+      "latency_s": 0.07,
+      "note": "中证全指（画像位置/波动输入）",
+      "sample_dates": [
+        "20261120",
+        "20261123",
+        "20261124"
+      ],
+      "params": {
+        "ts_code": "000985.CSI",
+        "start_date": "20261101",
+        "end_date": "20261124"
+      }
+    },
+    {
+      "api": "index_daily",
+      "ok": true,
+      "rows": 17,
+      "fields": [
+        "trade_date",
+        "close"
+      ],
+      "latency_s": 0.24,
+      "note": "上证指数",
+      "sample_dates": [
+        "20261120",
+        "20261123",
+        "20261124"
+      ],
+      "params": {
+        "ts_code": "000001.SH",
+        "start_date": "20261101",
+        "end_date": "20261124"
+      }
+    },
+    {
+      "api": "daily_basic",
+      "ok": true,
+      "rows": 5572,
+      "fields": [
+        "ts_code",
+        "pe_ttm",
+        "pb",
+        "turnover_rate",
+        "circ_mv"
+      ],
+      "latency_s": 1.3,
+      "note": "估值/换手（画像输入）",
+      "sample_dates": [],
+      "params": {
+        "trade_date": "20261120"
+      }
+    },
+    {
+      "api": "margin",
+      "ok": true,
+      "rows": 3,
+      "fields": [
+        "trade_date",
+        "exchange_id",
+        "rzye",
+        "rzmre",
+        "rzche",
+        "rqye",
+        "rqmcl",
+        "rzrqye",
+        "rqyl"
+      ],
+      "latency_s": 0.07,
+      "note": "融资融券汇总（三所；当日可能不齐）",
+      "sample_dates": [
+        "20261120"
+      ],
+      "params": {
+        "trade_date": "20261120"
+      }
+    },
+    {
+      "api": "moneyflow",
+      "ok": true,
+      "rows": 5580,
+      "fields": [
+        "ts_code",
+        "buy_lg_amount",
+        "sell_lg_amount",
+        "buy_elg_amount",
+        "sell_elg_amount",
+        "net_mf_amount"
+      ],
+      "latency_s": 1.26,
+      "note": "主力资金（wind_vane 同步层）",
+      "sample_dates": [],
+      "params": {
+        "trade_date": "20261120"
+      }
+    },
+    {
+      "api": "fund_share",
+      "ok": true,
+      "rows": 16,
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "fd_share",
+        "fund_type",
+        "market"
+      ],
+      "latency_s": 0.07,
+      "note": "ETF 份额（T+1）",
+      "sample_dates": [
+        "20261119",
+        "20261120",
+        "20261123"
+      ],
+      "params": {
+        "ts_code": "510300.SH",
+        "start_date": "20261101",
+        "end_date": "20261124"
+      }
+    },
+    {
+      "api": "fund_nav",
+      "ok": true,
+      "rows": 17,
+      "fields": [
+        "ts_code",
+        "ann_date",
+        "nav_date",
+        "unit_nav",
+        "accum_nav",
+        "accum_div",
+        "net_asset",
+        "adj_nav",
+        "update_flag"
+      ],
+      "latency_s": 0.08,
+      "note": "ETF 净值",
+      "sample_dates": [],
+      "params": {
+        "ts_code": "510300.SH",
+        "start_date": "20261101",
+        "end_date": "20261124"
+      }
+    },
+    {
+      "api": "fund_daily",
+      "ok": true,
+      "rows": 17,
+      "fields": [
+        "trade_date",
+        "close"
+      ],
+      "latency_s": 0.07,
+      "note": "沪深300ETF 行情（账本标的）",
+      "sample_dates": [
+        "20261120",
+        "20261123",
+        "20261124"
+      ],
+      "params": {
+        "ts_code": "510300.SH",
+        "start_date": "20261101",
+        "end_date": "20261124"
+      }
+    },
+    {
+      "api": "moneyflow_ind_ths",
+      "ok": true,
+      "rows": 360,
+      "fields": [
+        "trade_date",
+        "ts_code",
+        "industry",
+        "lead_stock",
+        "close",
+        "pct_change",
+        "company_num",
+        "pct_change_stock",
+        "close_price",
+        "net_buy_amount",
+        "net_sell_amount",
+        "net_amount"
+      ],
+      "latency_s": 0.1,
+      "note": "同花顺行业资金流（rich_trend）",
+      "sample_dates": [
+        "20261120",
+        "20261123",
+        "20261124"
+      ],
+      "params": {
+        "start_date": "20261119",
+        "end_date": "20261124"
+      }
+    },
+    {
+      "api": "ths_member",
+      "ok": true,
+      "rows": 190,
+      "fields": [
+        "ts_code",
+        "con_code",
+        "con_name"
+      ],
+      "latency_s": 0.07,
+      "note": "同花顺行业成分（只有当前快照）",
+      "sample_dates": [],
+      "params": {
+        "ts_code": "881121.TI"
+      }
+    },
+    {
+      "api": "stk_mins",
+      "ok": true,
+      "rows": 0,
+      "fields": [
+        "ts_code",
+        "trade_time",
+        "open",
+        "close",
+        "high",
+        "low",
+        "vol",
+        "amount"
+      ],
+      "latency_s": 0.09,
+      "note": "分钟线（盘中回退通道）",
+      "sample_dates": [],
+      "params": {
+        "ts_code": "000001.SH",
+        "freq": "1min",
+        "start_date": "2026-11-20 09:30:00",
+        "end_date": "2026-11-20 10:30:00"
+      }
+    },
+    {
+      "api": "rt_min",
+      "ok": false,
+      "error": "rt_min: 您的权限不足",
+      "note": "实时分钟（历史文档记录无权限，复核）",
+      "latency_s": 13.06,
+      "params": {
+        "ts_code": "000001.SH"
+      }
+    }
+  ]
+}

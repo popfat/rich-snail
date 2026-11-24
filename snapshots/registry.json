@@ -1,0 +1,137 @@
+{
+  "registered_at": "2026-11-24T22:17:18",
+  "note": "注册信息为派生物；本项目不实现指标计算（D8）。time_risk 项在 S2 前必须逐列核定。",
+  "market_snapshots": [
+    {
+      "id": "MS-PORTRAIT-001",
+      "name": "市场画像日线面板",
+      "ref": "section_heat/data/portrait_daily.parquet",
+      "source": "index_daily / MySQL factor_rotation.daily_basic + tushare / margin / daily / wind_vane etf_flow",
+      "universe": "全市场/中证全指，2010 起（TODO 记载 4025 天×21 列）",
+      "caliber": "原始值+1250日滚动分位（_pct 列）；估值历史段经 MySQL（2010~2026-07）+ tushare 补近期=混合来源",
+      "time_semantics": {
+        "event_time": "trade_date",
+        "publish_time": "unknown",
+        "available_time": "unknown（time_risk=true：混合来源，margin/ETF 有 T+1 与不齐特性，S2 前须逐列核定）",
+        "ingest_time": "unknown"
+      },
+      "quality_status": "suspect（时间语义未逐列核定）",
+      "file": {
+        "sha256": "f3fa1238127bf3c533456bacf733a0efc2902b484a56393a111a51b920d0de07",
+        "bytes": 582851,
+        "mtime": "2026-11-24T17:38:27"
+      },
+      "note": "占位列 north_flow/rate10y 未激活，契约禁止引用"
+    },
+    {
+      "id": "MS-COINCIDENT-001",
+      "name": "同步层合并视图",
+      "ref": "wind_vane/data/coincident_daily.csv",
+      "source": "moneyflow / margin / fund_share+fund_nav",
+      "universe": "全市场；moneyflow/margin 自 2023-10-25，etf_flow 自 2012-05-04",
+      "caliber": "主力净额亿元；rzye 亿元（含 est 回填标记）；ETF 净申购亿元（PIT 12 只篮子）",
+      "time_semantics": {
+        "event_time": "trade_date",
+        "publish_time": "unknown",
+        "available_time": "当日收盘后（margin 不足三所当日不落盘；fund_share T+1，n_etfs 见覆盖数）",
+        "ingest_time": "文件 mtime 见 sha 记录"
+      },
+      "quality_status": "ok（缺口机制已文档化）",
+      "file": {
+        "sha256": "00a14b5d6c1776cad39eb5ad30a8598ff44865a819c52268498890d7e080f405",
+        "bytes": 48173,
+        "mtime": "2026-11-07T14:57:02"
+      },
+      "note": "原始三表：coincident_moneyflow/margin/etf_flow.csv 同目录"
+    },
+    {
+      "id": "MS-CACHE-001",
+      "name": "section_heat pkl 进程缓存",
+      "ref": "section_heat/cache/（约 1 万个 pkl）",
+      "source": "daily/snap/margin/index 等接口缓存",
+      "universe": "不一致（逐文件）",
+      "caliber": "进程缓存，无契约字段",
+      "time_semantics": {
+        "event_time": "文件内 trade_date",
+        "publish_time": "unknown",
+        "available_time": "unknown（time_risk=true）",
+        "ingest_time": "文件 mtime"
+      },
+      "quality_status": "suspect（非权威）",
+      "file": null,
+      "note": "⚠️ 非权威加速层：不得作为 as_of 回放依据；权威快照待 B1 后续以契约格式重建"
+    },
+    {
+      "id": "MS-RICHTREND-001",
+      "name": "rich_trend MySQL 数据底座",
+      "ref": "MySQL market_history_data.rt_*（11 表）",
+      "source": "moneyflow_ind_ths / ths_daily / ths_member / daily / daily_basic",
+      "universe": "881 系列 90 个同花顺行业；行业资金流原生起点 2024-09-10；广度/结构类自 2024-12-24",
+      "caliber": "fact 表万元、mart 表亿元；基准 000300.SH；原生口径与探索口径（当前成分回填）并存",
+      "time_semantics": {
+        "event_time": "trade_date",
+        "publish_time": "unknown",
+        "available_time": "当日 ETL 完成后（etl_daily.py）",
+        "ingest_time": "表内时间戳（待核）"
+      },
+      "quality_status": "ok（口径须标注）",
+      "file": null,
+      "note": "成分每日快照（ths_member 无历史）；探索口径引用须显式标注（CON-000005）"
+    },
+    {
+      "id": "MS-DASHBOARD-001",
+      "name": "dashboard 派生统计 JSON",
+      "ref": "dashboard/data/*.json（4 文件）",
+      "source": "similar_regime_signal / regime_transition / analog_mining / midband 脚本产物",
+      "universe": "派生物",
+      "caliber": "派生统计（胜率表/lookup/top10/信号）",
+      "time_semantics": {
+        "event_time": "生成日",
+        "publish_time": "生成日",
+        "available_time": "生成后",
+        "ingest_time": "文件 mtime"
+      },
+      "quality_status": "ok（派生物）",
+      "file": null,
+      "note": "必须可从主记录重建；引用须记录生成版本"
+    }
+  ],
+  "feature_snapshots": [
+    {
+      "id": "FS-PORTRAIT-V1",
+      "name": "市场画像六维",
+      "feature_card": "FEA-000001",
+      "formula_version": "external: scripts/build_portrait.py（母项目，未纳入版本管理——版本记录为其文件 mtime）",
+      "input_snapshots": "MS-PORTRAIT-001",
+      "anomaly_status": "ok（占位列未启用）",
+      "note": "六维分位（pos/val/lev/act/vol/etf_flow）；公式与参数以源脚本为准，本项目不复制"
+    },
+    {
+      "id": "FS-SIGNAL-V1",
+      "name": "信号族（温度/温度动量/离散度/相关性）",
+      "feature_card": "FEA-000002",
+      "formula_version": "external: section_heat/section_heat_tushare.py + scripts/intraday_temp_live.py（盘中 14:50 估计，akshare 通道，intraday_estimate 口径）",
+      "input_snapshots": "MS-CACHE-001（加速层）/ 源项目 scores_*.parquet",
+      "anomaly_status": "ok",
+      "note": "三口径 sw/ths/snap；250 日滚动分位"
+    },
+    {
+      "id": "FS-COINCIDENT-V1",
+      "name": "同步层三指标（主力流出压力/杠杆水位/ETF 净流入）",
+      "feature_card": "FEA-000003/FEA-000004/FEA-000005",
+      "formula_version": "external: wind_vane/collect_coincident.py + merge_coincident.py",
+      "input_snapshots": "MS-COINCIDENT-001",
+      "anomaly_status": "ok",
+      "note": "250 日滚动分位；阈值黄 90/红 99 为占位未校准"
+    },
+    {
+      "id": "FS-RICHTREND-V1",
+      "name": "rich_trend 指标底座与状态标注",
+      "feature_card": "FEA-000006/FEA-000007",
+      "formula_version": "external: rich_trend/scripts/build_metrics.py + build_annotations.py（规则 v1.0）",
+      "input_snapshots": "MS-RICHTREND-001",
+      "anomaly_status": "ok",
+      "note": "RobustZ 120 日中位/MAD ≥60 观测截尾±5；状态机阶梯+风险标签"
+    }
+  ]
+}
